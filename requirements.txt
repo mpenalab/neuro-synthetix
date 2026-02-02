@@ -1,0 +1,22 @@
+# Data Science
+numpy
+pandas
+matplotlib
+
+# Chemistry & Bio
+rdkit
+deepchem
+
+# Deep Learning (Graph Neural Networks)
+torch
+torch-geometric
+
+# MLOps & Versioning
+mlflow
+dvc
+python-dotenv
+
+# API & Deployment
+fastapi
+uvicorn
+pydantic
