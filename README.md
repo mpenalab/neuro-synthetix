@@ -24,7 +24,7 @@ The platform is built on four fundamental pillars:
 
 ---
 
-## 🚀 30-Day Roadmap
+## 🚀 15-Day Roadmap
 
 | Phase | Status | Goal | Key Technologies |
 | :--- | :---: | :--- | :--- |
@@ -41,6 +41,8 @@ The platform is built on four fundamental pillars:
 * **Day 2:** Implemented `fetch_data.py`. Automated ingestion of **EGFR** bioactivity data (IC50) from the ChEMBL API.
 * **Day 3:** Implemented `curation.py`. Applied chemical cleaning techniques: salt removal, SMILES canonicalization, and structural deduplication using **RDKit**. 
     * *Result:* Cleaned the dataset to ensure the model learns from active organic scaffolds, not preparation artifacts.
+* **Day 4:** `eda.py`. Scientific EDA and **Lipinski's Rule of Five** validation.
+    * *Insight:* We analyzed the compounds’ drug-likeness (MW, LogP, HBD, HBA) to ensure the model learns from molecules with real pharmacological potential.
 
 ---
 
@@ -48,6 +50,19 @@ The platform is built on four fundamental pillars:
 In the pharmaceutical industry, "garbage in, garbage out" can lead to massive losses. By implementing **Salt Removal** and **Canonicalization** at the early stages, we ensure:
 * **Data Integrity:** Removing inorganic ions (Na+, Cl-) that do not contribute to binding affinity prediction.
 * **Uniqueness:** Ensuring that each chemical structure is represented by a single, unique SMILES string to prevent data leakage during training.
+
+---
+
+## 📊 Scientific Insights (Day 4)
+To ensure data quality, we validated the physicochemical properties of our processed dataset:
+
+![EDA Results](reports/figures/eda_results.png)
+
+
+**Key Metrics Tracked:**
+* **Molecular Weight (MW):** We identified the optimal molecular size range for crossing cell membranes.
+* **LogP:** We measured lipophilicity to ensure bioavailability.
+* **pChEMBL Value:** Our target variable (logarithmic binding affinity).
 
 ---
 

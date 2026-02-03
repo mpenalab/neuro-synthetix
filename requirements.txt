@@ -2,6 +2,7 @@
 numpy
 pandas
 matplotlib
+seaborn
 
 # Chemistry & Bio
 rdkit
