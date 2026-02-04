@@ -1,0 +1,22 @@
+stages:
+  ingest:
+    cmd: python src/ingestion/fetch_data.py
+    deps:
+      - src/ingestion/fetch_data.py
+    outs:
+      - data/raw/egfr_compounds.csv
+  curate:
+    cmd: python src/processing/curation.py
+    deps:
+      - src/processing/curation.py
+      - data/raw/egfr_compounds.csv
+    outs:
+      - data/processed/egfr_curated.csv
+  eda:
+    cmd: python src/processing/eda.py
+    deps:
+      - src/processing/eda.py
+      - data/processed/egfr_curated.csv
+    outs:
+      - data/processed/egfr_with_features.csv
+      - reports/figures/eda_results.png

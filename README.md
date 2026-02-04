@@ -43,6 +43,11 @@ The platform is built on four fundamental pillars:
     * *Result:* Cleaned the dataset to ensure the model learns from active organic scaffolds, not preparation artifacts.
 * **Day 4:** `eda.py`. Scientific EDA and **Lipinski's Rule of Five** validation.
     * *Insight:* We analyzed the compounds’ drug-likeness (MW, LogP, HBD, HBA) to ensure the model learns from molecules with real pharmacological potential.
+* **Day 5:** **MLOps Infrastructure & Pipeline Automation**. 
+    * Initialized **DVC** for data versioning.
+    * Configured **MLflow** for experiment tracking.
+    * Created `dvc.yaml` to orchestrate the entire pipeline from ingestion to EDA.
+    * *Result:* The project is now 100% reproducible with a single command.
 
 ---
 
@@ -63,6 +68,18 @@ To ensure data quality, we validated the physicochemical properties of our proce
 * **Molecular Weight (MW):** We identified the optimal molecular size range for crossing cell membranes.
 * **LogP:** We measured lipophilicity to ensure bioavailability.
 * **pChEMBL Value:** Our target variable (logarithmic binding affinity).
+
+---
+
+## ⚙️ MLOps & Reproducibility
+
+This project uses **DVC** to ensure that data and experiments are traceable. There’s no need to download the datasets manually.
+
+### Reproduce the entire pipeline:
+If you want to run the full pipeline (Ingestion -> Curation -> EDA):
+```bash
+dvc repro
+```
 
 ---
 

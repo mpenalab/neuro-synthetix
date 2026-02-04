@@ -1,0 +1,50 @@
+schema: '2.0'
+stages:
+  ingest:
+    cmd: python src/ingestion/fetch_data.py
+    deps:
+    - path: src/ingestion/fetch_data.py
+      hash: md5
+      md5: 1c78369f01bcf0a79872a58eeec2345f
+      size: 1943
+    outs:
+    - path: data/raw/egfr_compounds.csv
+      hash: md5
+      md5: 9a10a8801907399297c01288d16febf3
+      size: 6506
+  curate:
+    cmd: python src/processing/curation.py
+    deps:
+    - path: data/raw/egfr_compounds.csv
+      hash: md5
+      md5: 9a10a8801907399297c01288d16febf3
+      size: 6506
+    - path: src/processing/curation.py
+      hash: md5
+      md5: e304508d052a7759bcf186f60a1e47e0
+      size: 1982
+    outs:
+    - path: data/processed/egfr_curated.csv
+      hash: md5
+      md5: 6fef78315d9a4439d248c8d27083c577
+      size: 5981
+  eda:
+    cmd: python src/processing/eda.py
+    deps:
+    - path: data/processed/egfr_curated.csv
+      hash: md5
+      md5: 6fef78315d9a4439d248c8d27083c577
+      size: 5981
+    - path: src/processing/eda.py
+      hash: md5
+      md5: d139d8d6889a1a3e4d8af3994a2ee832
+      size: 1945
+    outs:
+    - path: data/processed/egfr_with_features.csv
+      hash: md5
+      md5: 31b9e3dbfcf46add2d5722675c3189ba
+      size: 9530
+    - path: reports/figures/eda_results.png
+      hash: md5
+      md5: c18f5786a43814d10b88a6de3aac036b
+      size: 73464
