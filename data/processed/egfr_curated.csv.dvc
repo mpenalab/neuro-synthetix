@@ -1,0 +1,5 @@
+outs:
+- md5: 6fef78315d9a4439d248c8d27083c577
+  size: 5981
+  hash: md5
+  path: egfr_curated.csv

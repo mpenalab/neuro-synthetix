@@ -1,0 +1,5 @@
+outs:
+- md5: 9a10a8801907399297c01288d16febf3
+  size: 6506
+  hash: md5
+  path: egfr_compounds.csv
