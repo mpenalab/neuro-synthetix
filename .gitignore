@@ -1,0 +1,16 @@
+# MLflow
+mlflow.db
+mlruns/
+.mlflow_binaries/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# DVC local cache
+.dvc/cache
+.dvc/tmp
+
+# Data (DVC ya debería ignorarlo, pero por seguridad)
+data/raw/*.csv
+data/processed/*.csv
