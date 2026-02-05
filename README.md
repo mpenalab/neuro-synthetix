@@ -48,6 +48,15 @@ The platform is built on four fundamental pillars:
     * Configured **MLflow** for experiment tracking.
     * Created `dvc.yaml` to orchestrate the entire pipeline from ingestion to EDA.
     * *Result:* The project is now 100% reproducible with a single command.
+* **Day 6:** **Molecular Graph Construction**.
+    * Developed a featurization pipeline using **PyTorch Geometric**.
+    * Converted SMILES strings into graph objects (`Data`) by encoding atoms as nodes and chemical bonds as edges.
+    * Implemented **One-Hot Encoding** for atomic symbols and physicochemical properties (aromaticity, valence, degree).
+* **Day 7:** **Successful GNN Training & Optimization**.
+    * Resolved numerical instability (NaN) and overfitting (Zero Loss) by refining data ingestion and model hyperparameters.
+    * Implemented **Gradient Clipping** and a stabilized Learning Rate (0.001).
+    * **Results:** The model successfully converged from an initial MSE Loss of 22.68 to 1.62 over 100 epochs.
+    * Experiment metrics and model artifacts were fully logged and versioned using **MLflow**.
 
 ---
 
@@ -55,6 +64,7 @@ The platform is built on four fundamental pillars:
 In the pharmaceutical industry, "garbage in, garbage out" can lead to massive losses. By implementing **Salt Removal** and **Canonicalization** at the early stages, we ensure:
 * **Data Integrity:** Removing inorganic ions (Na+, Cl-) that do not contribute to binding affinity prediction.
 * **Uniqueness:** Ensuring that each chemical structure is represented by a single, unique SMILES string to prevent data leakage during training.
+* **Graph Representation:** Instead of using fixed fingerprints, we represent molecules as dynamic graphs. This allows the model to learn spatial and topological features directly from the molecular structure, preserving the 2D connectivity of the atoms.
 
 ---
 

@@ -19,35 +19,45 @@ def fetch_target_data(target_hgnc_symbol="EGFR"):
     chembl_id = targets.loc[0, 'target_chembl_id']
     print(f"✅ Target hallado: {chembl_id}")
 
-    # 2. Filtrar actividades para este target
-    # Filtramos por: IC50 (potencia), ensayos tipo 'B' (Binding) y solo datos en nM
+    # 2. Búsqueda masiva sin filtros previos de potencia
     activity = new_client.activity
-    res = activity.filter(target_chembl_id=chembl_id) \
-                  .filter(standard_type="IC50") \
-                  .filter(standard_units="nM")
+    # Quitamos standard_type e IC50 para ver TODO lo que hay del target
+    res = activity.filter(target_chembl_id=chembl_id) 
+    
+    print(f"📥 Descargando datos brutos (esto puede tomar un poco más)...")
+    
+    activity_list = list(res)
+    df = pd.DataFrame(activity_list)
 
-    print(f"📥 Descargando datos de bioactividad (esto puede tardar unos minutos)...")
+    # 3. Filtrado manual agresivo en Pandas
+    # Buscamos cualquier cosa que se parezca a una medida de potencia (IC50, Ki, EC50)
+    potency_types = ['IC50', 'Ki', 'EC50', 'Kd']
+    df_clean = df[df['standard_type'].isin(potency_types)].copy()
     
-    # Convertimos a DataFrame
-    df = pd.DataFrame.from_dict(res)
+    # Limpieza de nulos críticos
+    df_clean = df_clean.dropna(subset=['canonical_smiles', 'standard_value'])
     
-    # 3. Selección de columnas críticas para MLOps
-    columns_to_keep = [
-        'molecule_chembl_id', 
-        'canonical_smiles', 
-        'standard_value', 
-        'standard_units',
-        'pchembl_value'
-    ]
+    # Asegurar que los valores sean numéricos
+    df_clean['standard_value'] = pd.to_numeric(df_clean['standard_value'], errors='coerce')
+    df_clean['pchembl_value'] = pd.to_numeric(df_clean['pchembl_value'], errors='coerce')
+    df_clean = df_clean.dropna(subset=['standard_value'])
+
+    # Si pchembl_value es nulo, lo calculamos (pIC50 = -log10(IC50 * 1e-9))
+    # Solo si el standard_unit es nM
+    mask = df_clean['pchembl_value'].isna() & (df_clean['standard_units'] == 'nM')
+    import numpy as np
+    df_clean.loc[mask, 'pchembl_value'] = -np.log10(df_clean.loc[mask, 'standard_value'] * 1e-9)
     
-    df_clean = df[columns_to_keep].dropna(subset=['canonical_smiles', 'standard_value'])
-    
-    # Guardar en la carpeta de datos crudos
+    # Volvemos a limpiar por si quedaron NaNs en el target final
+    df_clean = df_clean.dropna(subset=['pchembl_value'])
+
+    # Guardar
     output_path = "data/raw/egfr_compounds.csv"
     os.makedirs("data/raw", exist_ok=True)
     df_clean.to_csv(output_path, index=False)
     
-    print(f"💾 ¡Éxito! Se guardaron {len(df_clean)} compuestos en: {output_path}")
+    print(f"💾 ¡Éxito! Registros brutos encontrados: {len(df)}")
+    print(f"🧪 Compuestos con métricas de potencia válidas: {len(df_clean)}")
 
 if __name__ == "__main__":
     fetch_target_data()

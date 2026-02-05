@@ -27,3 +27,11 @@ stages:
       - data/processed/egfr_with_features.csv
     outs:
       - data/processed/graphs_dataset.pt
+  train:
+    cmd: python src/models/train.py
+    deps:
+      - src/models/train.py
+      - src/models/gnn_model.py
+      - data/processed/graphs_dataset.pt
+    outs:
+      - models/gnn_v1.pth

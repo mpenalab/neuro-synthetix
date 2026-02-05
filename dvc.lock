@@ -5,20 +5,20 @@ stages:
     deps:
     - path: src/ingestion/fetch_data.py
       hash: md5
-      md5: 1c78369f01bcf0a79872a58eeec2345f
-      size: 1943
+      md5: 2e869fa34d61c866999c08a0f937bfbe
+      size: 2660
     outs:
     - path: data/raw/egfr_compounds.csv
       hash: md5
-      md5: 9a10a8801907399297c01288d16febf3
-      size: 6506
+      md5: d155d6e1008946429d20ef6bb329c852
+      size: 51274
   curate:
     cmd: python src/processing/curation.py
     deps:
     - path: data/raw/egfr_compounds.csv
       hash: md5
-      md5: 9a10a8801907399297c01288d16febf3
-      size: 6506
+      md5: d155d6e1008946429d20ef6bb329c852
+      size: 51274
     - path: src/processing/curation.py
       hash: md5
       md5: e304508d052a7759bcf186f60a1e47e0
@@ -26,15 +26,15 @@ stages:
     outs:
     - path: data/processed/egfr_curated.csv
       hash: md5
-      md5: 6fef78315d9a4439d248c8d27083c577
-      size: 5981
+      md5: 132d8bc11b830799f49899e6d9953064
+      size: 6218
   eda:
     cmd: python src/processing/eda.py
     deps:
     - path: data/processed/egfr_curated.csv
       hash: md5
-      md5: 6fef78315d9a4439d248c8d27083c577
-      size: 5981
+      md5: 132d8bc11b830799f49899e6d9953064
+      size: 6218
     - path: src/processing/eda.py
       hash: md5
       md5: d139d8d6889a1a3e4d8af3994a2ee832
@@ -42,19 +42,19 @@ stages:
     outs:
     - path: data/processed/egfr_with_features.csv
       hash: md5
-      md5: 31b9e3dbfcf46add2d5722675c3189ba
-      size: 9530
+      md5: 769308ecf68ec0091ada6170ffc77ea0
+      size: 9767
     - path: reports/figures/eda_results.png
       hash: md5
-      md5: c18f5786a43814d10b88a6de3aac036b
-      size: 73464
+      md5: 7a1485d4532a2677b3c7a40503d4a0e7
+      size: 73000
   graph_build:
     cmd: python src/processing/graph_construction.py
     deps:
     - path: data/processed/egfr_with_features.csv
       hash: md5
-      md5: 31b9e3dbfcf46add2d5722675c3189ba
-      size: 9530
+      md5: 769308ecf68ec0091ada6170ffc77ea0
+      size: 9767
     - path: src/processing/graph_construction.py
       hash: md5
       md5: 6cc2755254da81dad5887047acabb32f
@@ -62,5 +62,25 @@ stages:
     outs:
     - path: data/processed/graphs_dataset.pt
       hash: md5
-      md5: 504ca2ce04a7d12bfd2cd766f5e19554
+      md5: edc7df7e636cb8b19ba8e2012d0544fe
       size: 272680
+  train:
+    cmd: python src/models/train.py
+    deps:
+    - path: data/processed/graphs_dataset.pt
+      hash: md5
+      md5: edc7df7e636cb8b19ba8e2012d0544fe
+      size: 272680
+    - path: src/models/gnn_model.py
+      hash: md5
+      md5: e7fe56dd26ea2ff5f8e7cbc76d6863b0
+      size: 698
+    - path: src/models/train.py
+      hash: md5
+      md5: 104c4bc6a463868d21861666214da1f4
+      size: 2044
+    outs:
+    - path: models/gnn_v1.pth
+      hash: md5
+      md5: 2927c2958f7690b5da3bd2e798c680ec
+      size: 4809
