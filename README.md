@@ -75,11 +75,18 @@ To ensure data quality, we validated the physicochemical properties of our proce
 
 This project uses **DVC** to ensure that data and experiments are traceable. There’s no need to download the datasets manually.
 
-### Reproduce the entire pipeline:
-If you want to run the full pipeline (Ingestion -> Curation -> EDA):
+### Visualize the Data Pipeline (DAG):
 ```bash
-dvc repro
+dvc dag
 ```
+
+### Experiment Tracking:
+The project uses **MLflow** to log parameters, metrics, and molecular artifacts. To view the dashboard:
+1. Run the tracking server:
+   ```bash
+   mlflow server --host 127.0.0.1 --port 5000
+   ```
+2. Open your browser at: http://127.0.0.1:5000
 
 ---
 
@@ -100,6 +107,5 @@ dvc repro
 
 3. **Reproduce the pipeline:**
     ```bash
-    python src/ingestion/fetch_data.py
-    python src/processing/curation.py
+    dvc repro
     ```

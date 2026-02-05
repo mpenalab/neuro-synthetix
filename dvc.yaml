@@ -20,3 +20,10 @@ stages:
     outs:
       - data/processed/egfr_with_features.csv
       - reports/figures/eda_results.png
+  graph_build:
+    cmd: python src/processing/graph_construction.py
+    deps:
+      - src/processing/graph_construction.py
+      - data/processed/egfr_with_features.csv
+    outs:
+      - data/processed/graphs_dataset.pt

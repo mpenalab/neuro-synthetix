@@ -48,3 +48,19 @@ stages:
       hash: md5
       md5: c18f5786a43814d10b88a6de3aac036b
       size: 73464
+  graph_build:
+    cmd: python src/processing/graph_construction.py
+    deps:
+    - path: data/processed/egfr_with_features.csv
+      hash: md5
+      md5: 31b9e3dbfcf46add2d5722675c3189ba
+      size: 9530
+    - path: src/processing/graph_construction.py
+      hash: md5
+      md5: 6cc2755254da81dad5887047acabb32f
+      size: 2450
+    outs:
+    - path: data/processed/graphs_dataset.pt
+      hash: md5
+      md5: 504ca2ce04a7d12bfd2cd766f5e19554
+      size: 272680
