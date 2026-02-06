@@ -44,3 +44,12 @@ stages:
       - models/best_params.json
     outs:
       - models/gnn_v1.pth
+  evaluate:
+    cmd: python src/models/evaluate.py
+    deps:
+      - src/models/evaluate.py
+      - models/gnn_v1.pth
+      - models/best_params.json
+      - data/processed/graphs_dataset.pt
+    outs:
+      - reports/figures/evaluation_plot.png

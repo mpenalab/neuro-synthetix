@@ -62,6 +62,11 @@ The platform is built on four fundamental pillars:
     * Automated the search for optimal `learning_rate`, `hidden_channels`, and `dropout` levels.
     * Linked Optuna trials with **MLflow** to visualize the optimization surface and parameter importance.
     * Implemented an automated feedback loop to inject the best parameters into the final training script.
+* **Day 9:** **Model Evaluation & Error Analysis**.
+    * Implemented a formal evaluation pipeline on an independent Test Set.
+    * Calculated key performance indicators: **MAE** (Mean Absolute Error) and **R²** (Coefficient of Determination).
+    * Generated **Actual vs. Predicted** regression plots to visualize model bias and variance.
+    * Integrated evaluation reports into the automated **DVC** pipeline.
 
 ---
 

@@ -73,8 +73,8 @@ stages:
       size: 272680
     - path: models/best_params.json
       hash: md5
-      md5: bc11da4f8f1490b3f041d25b6b301117
-      size: 143
+      md5: 2229fa071abba36b51644fad2bac14ae
+      size: 141
     - path: src/models/gnn_model.py
       hash: md5
       md5: e7fe56dd26ea2ff5f8e7cbc76d6863b0
@@ -86,7 +86,7 @@ stages:
     outs:
     - path: models/gnn_v1.pth
       hash: md5
-      md5: 3532176076b1e4ce07526f31083f9ed1
+      md5: 74e411b33d4fd43cceae148ebe661ff1
       size: 23241
   optimize:
     cmd: python src/models/optimize.py
@@ -103,3 +103,32 @@ stages:
       hash: md5
       md5: 1d36262178630c4631fb8a6d17cf653f
       size: 2722
+    outs:
+    - path: models/best_params.json
+      hash: md5
+      md5: 2229fa071abba36b51644fad2bac14ae
+      size: 141
+  evaluate:
+    cmd: python src/models/evaluate.py
+    deps:
+    - path: data/processed/graphs_dataset.pt
+      hash: md5
+      md5: edc7df7e636cb8b19ba8e2012d0544fe
+      size: 272680
+    - path: models/best_params.json
+      hash: md5
+      md5: 2229fa071abba36b51644fad2bac14ae
+      size: 141
+    - path: models/gnn_v1.pth
+      hash: md5
+      md5: 74e411b33d4fd43cceae148ebe661ff1
+      size: 23241
+    - path: src/models/evaluate.py
+      hash: md5
+      md5: 34d8a142c23c7006b5ff897e54753e6f
+      size: 2171
+    outs:
+    - path: reports/figures/evaluation_plot.png
+      hash: md5
+      md5: 7192a5bb83ec937cca7f239c083a962d
+      size: 27013
