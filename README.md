@@ -67,6 +67,10 @@ The platform is built on four fundamental pillars:
     * Calculated key performance indicators: **MAE** (Mean Absolute Error) and **R²** (Coefficient of Determination).
     * Generated **Actual vs. Predicted** regression plots to visualize model bias and variance.
     * Integrated evaluation reports into the automated **DVC** pipeline.
+* **Day 10:** **Explainable AI (XAI)**.
+    * Integrated **Captum** to interpret GNN predictions.
+    * Applied **Integrated Gradients** to assign importance scores to individual atoms.
+    * Transitioned from "Black Box" modeling to interpretable drug discovery, identifying key pharmacophores.
 
 ---
 

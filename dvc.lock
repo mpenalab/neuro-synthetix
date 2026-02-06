@@ -132,3 +132,18 @@ stages:
       hash: md5
       md5: 7192a5bb83ec937cca7f239c083a962d
       size: 27013
+  explain:
+    cmd: python src/models/explain.py
+    deps:
+    - path: data/processed/graphs_dataset.pt
+      hash: md5
+      md5: edc7df7e636cb8b19ba8e2012d0544fe
+      size: 272680
+    - path: models/gnn_v1.pth
+      hash: md5
+      md5: 74e411b33d4fd43cceae148ebe661ff1
+      size: 23241
+    - path: src/models/evaluate.py
+      hash: md5
+      md5: 34d8a142c23c7006b5ff897e54753e6f
+      size: 2171

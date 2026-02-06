@@ -53,3 +53,9 @@ stages:
       - data/processed/graphs_dataset.pt
     outs:
       - reports/figures/evaluation_plot.png
+  explain:
+    cmd: python src/models/explain.py
+    deps: 
+      - src/models/evaluate.py
+      - models/gnn_v1.pth
+      - data/processed/graphs_dataset.pt
