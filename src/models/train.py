@@ -4,6 +4,7 @@ from gnn_model import GCN
 import mlflow
 import os
 from torch_geometric.data import Data
+import json
 
 # Configuración de seguridad para PyTorch 2.6+
 torch.serialization.add_safe_globals([Data])
@@ -13,9 +14,22 @@ def train():
     dataset = torch.load("data/processed/graphs_dataset.pt", weights_only=False)
     loader = DataLoader(dataset, batch_size=32, shuffle=True)
 
-    # 2. Inicializar modelo con LR más estable (0.001)
-    model = GCN(hidden_channels=16, input_dim=dataset[0].num_node_features)
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.001) 
+    # 2. Intentar cargar los mejores parámetros de Optuna
+    params_path = "models/best_params.json"
+    if os.path.exists(params_path):
+        with open(params_path, "r") as f:
+            best_params = json.load(f)
+        print(f"🚀 Entrenando con los mejores parámetros hallados: {best_params}")
+        h_channels = best_params.get("hidden_channels", 64)
+        lr = best_params.get("lr", 0.001)
+        # Nota: Si añadiste dropout al modelo, cárgalo aquí también
+    else:
+        print("⚠️ No se hallaron parámetros optimizados. Usando valores por defecto.")
+        h_channels = 64
+        lr = 0.001
+
+    model = GCN(hidden_channels=h_channels, input_dim=dataset[0].num_node_features)
+    optimizer = torch.optim.Adam(model.parameters(), lr=lr) 
     criterion = torch.nn.MSELoss()
 
     mlflow.set_experiment("Neuro-Synthetix-GNN")

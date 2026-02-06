@@ -27,11 +27,20 @@ stages:
       - data/processed/egfr_with_features.csv
     outs:
       - data/processed/graphs_dataset.pt
+  optimize:
+    cmd: python src/models/optimize.py
+    deps:
+      - src/models/optimize.py
+      - data/processed/graphs_dataset.pt
+      - src/models/gnn_model.py
+    outs:
+      - models/best_params.json
   train:
     cmd: python src/models/train.py
     deps:
       - src/models/train.py
       - src/models/gnn_model.py
       - data/processed/graphs_dataset.pt
+      - models/best_params.json
     outs:
       - models/gnn_v1.pth

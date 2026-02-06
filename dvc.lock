@@ -71,16 +71,35 @@ stages:
       hash: md5
       md5: edc7df7e636cb8b19ba8e2012d0544fe
       size: 272680
+    - path: models/best_params.json
+      hash: md5
+      md5: bc11da4f8f1490b3f041d25b6b301117
+      size: 143
     - path: src/models/gnn_model.py
       hash: md5
       md5: e7fe56dd26ea2ff5f8e7cbc76d6863b0
       size: 698
     - path: src/models/train.py
       hash: md5
-      md5: 104c4bc6a463868d21861666214da1f4
-      size: 2044
+      md5: a536c37d07933f321995e797676cf4bc
+      size: 2645
     outs:
     - path: models/gnn_v1.pth
       hash: md5
-      md5: 2927c2958f7690b5da3bd2e798c680ec
-      size: 4809
+      md5: 3532176076b1e4ce07526f31083f9ed1
+      size: 23241
+  optimize:
+    cmd: python src/models/optimize.py
+    deps:
+    - path: data/processed/graphs_dataset.pt
+      hash: md5
+      md5: edc7df7e636cb8b19ba8e2012d0544fe
+      size: 272680
+    - path: src/models/gnn_model.py
+      hash: md5
+      md5: e7fe56dd26ea2ff5f8e7cbc76d6863b0
+      size: 698
+    - path: src/models/optimize.py
+      hash: md5
+      md5: 1d36262178630c4631fb8a6d17cf653f
+      size: 2722

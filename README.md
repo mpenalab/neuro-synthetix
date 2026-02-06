@@ -28,10 +28,10 @@ The platform is built on four fundamental pillars:
 
 | Phase | Status | Goal | Key Technologies |
 | :--- | :---: | :--- | :--- |
-| **1. Data Engineering** | 🟡 | Ingestion, Curation & EDA | RDKit, ChEMBL API, DVC |
-| **2. MLOps Core** | ⚪ | Model Training & Tracking | PyTorch Geometric, MLflow |
-| **3. Validation & API** | ⚪ | Docking & FastAPI | AutoDock Vina, Docker |
-| **4. Advanced AI** | ⚪ | XAI & Active Learning | SHAP, ChromaDB, LLMs |
+| **1. Data Engineering** | ✅ | Ingestion, Curation & EDA | RDKit, ChEMBL API, DVC |
+| **2. MLOps Core** | ✅ | Model Training, Tracking & AutoML | PyTorch Geometric, MLflow, Optuna |
+| **3. Validation & API** | 🟡 | Evaluation & Deployment | FastAPI, Docker, Metrics (R², MSE) |
+| **4. Advanced AI** | ⚪ | XAI & Generative Feedback | SHAP, ChromaDB, LLMs |
 
 ---
 
@@ -57,6 +57,11 @@ The platform is built on four fundamental pillars:
     * Implemented **Gradient Clipping** and a stabilized Learning Rate (0.001).
     * **Results:** The model successfully converged from an initial MSE Loss of 22.68 to 1.62 over 100 epochs.
     * Experiment metrics and model artifacts were fully logged and versioned using **MLflow**.
+* **Day 8:** **Hyperparameter Optimization (AutoML)**.
+    * Integrated **Optuna** for Bayesian optimization of model hyperparameters.
+    * Automated the search for optimal `learning_rate`, `hidden_channels`, and `dropout` levels.
+    * Linked Optuna trials with **MLflow** to visualize the optimization surface and parameter importance.
+    * Implemented an automated feedback loop to inject the best parameters into the final training script.
 
 ---
 
@@ -65,6 +70,7 @@ In the pharmaceutical industry, "garbage in, garbage out" can lead to massive lo
 * **Data Integrity:** Removing inorganic ions (Na+, Cl-) that do not contribute to binding affinity prediction.
 * **Uniqueness:** Ensuring that each chemical structure is represented by a single, unique SMILES string to prevent data leakage during training.
 * **Graph Representation:** Instead of using fixed fingerprints, we represent molecules as dynamic graphs. This allows the model to learn spatial and topological features directly from the molecular structure, preserving the 2D connectivity of the atoms.
+* **Automated Optimization:** We don't rely on manual tuning. Using **Optuna**, the system performs 20+ trials per iteration to minimize the Validation MSE, ensuring the model architecture fits the specific chemical space of the dataset.
 
 ---
 
