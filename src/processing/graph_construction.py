@@ -43,7 +43,7 @@ def smiles_to_graph(smiles, target_value):
     # 3. Target (valor pChEMBL)
     y = torch.tensor([target_value], dtype=torch.float)
     
-    return Data(x=x, edge_index=edge_index, y=y)
+    return Data(x=x, edge_index=edge_index, y=y, smiles=smiles)
 
 def process_all_graphs():
     print("🧪 Transformando moléculas en grafos...")

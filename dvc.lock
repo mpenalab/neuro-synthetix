@@ -57,24 +57,24 @@ stages:
       size: 9767
     - path: src/processing/graph_construction.py
       hash: md5
-      md5: 6cc2755254da81dad5887047acabb32f
-      size: 2450
+      md5: 919ae910b58e859aaf5c39884dd188bd
+      size: 2465
     outs:
     - path: data/processed/graphs_dataset.pt
       hash: md5
-      md5: edc7df7e636cb8b19ba8e2012d0544fe
-      size: 272680
+      md5: 6f766a9b01492e5f67480f601c65154d
+      size: 277544
   train:
     cmd: python src/models/train.py
     deps:
     - path: data/processed/graphs_dataset.pt
       hash: md5
-      md5: edc7df7e636cb8b19ba8e2012d0544fe
-      size: 272680
+      md5: 6f766a9b01492e5f67480f601c65154d
+      size: 277544
     - path: models/best_params.json
       hash: md5
-      md5: 2229fa071abba36b51644fad2bac14ae
-      size: 141
+      md5: af1195024aeb4b6893a9f029a609745f
+      size: 143
     - path: src/models/gnn_model.py
       hash: md5
       md5: e7fe56dd26ea2ff5f8e7cbc76d6863b0
@@ -86,15 +86,15 @@ stages:
     outs:
     - path: models/gnn_v1.pth
       hash: md5
-      md5: 74e411b33d4fd43cceae148ebe661ff1
-      size: 23241
+      md5: 7260b52e27ef440697b604f650a640ea
+      size: 4809
   optimize:
     cmd: python src/models/optimize.py
     deps:
     - path: data/processed/graphs_dataset.pt
       hash: md5
-      md5: edc7df7e636cb8b19ba8e2012d0544fe
-      size: 272680
+      md5: 6f766a9b01492e5f67480f601c65154d
+      size: 277544
     - path: src/models/gnn_model.py
       hash: md5
       md5: e7fe56dd26ea2ff5f8e7cbc76d6863b0
@@ -106,23 +106,23 @@ stages:
     outs:
     - path: models/best_params.json
       hash: md5
-      md5: 2229fa071abba36b51644fad2bac14ae
-      size: 141
+      md5: af1195024aeb4b6893a9f029a609745f
+      size: 143
   evaluate:
     cmd: python src/models/evaluate.py
     deps:
     - path: data/processed/graphs_dataset.pt
       hash: md5
-      md5: edc7df7e636cb8b19ba8e2012d0544fe
-      size: 272680
+      md5: 6f766a9b01492e5f67480f601c65154d
+      size: 277544
     - path: models/best_params.json
       hash: md5
-      md5: 2229fa071abba36b51644fad2bac14ae
-      size: 141
+      md5: af1195024aeb4b6893a9f029a609745f
+      size: 143
     - path: models/gnn_v1.pth
       hash: md5
-      md5: 74e411b33d4fd43cceae148ebe661ff1
-      size: 23241
+      md5: 7260b52e27ef440697b604f650a640ea
+      size: 4809
     - path: src/models/evaluate.py
       hash: md5
       md5: 34d8a142c23c7006b5ff897e54753e6f
@@ -130,20 +130,40 @@ stages:
     outs:
     - path: reports/figures/evaluation_plot.png
       hash: md5
-      md5: 7192a5bb83ec937cca7f239c083a962d
-      size: 27013
+      md5: a860c752373adf71b0d0be9e31097732
+      size: 27106
   explain:
     cmd: python src/models/explain.py
     deps:
     - path: data/processed/graphs_dataset.pt
       hash: md5
-      md5: edc7df7e636cb8b19ba8e2012d0544fe
-      size: 272680
+      md5: 6f766a9b01492e5f67480f601c65154d
+      size: 277544
     - path: models/gnn_v1.pth
       hash: md5
-      md5: 74e411b33d4fd43cceae148ebe661ff1
-      size: 23241
+      md5: 7260b52e27ef440697b604f650a640ea
+      size: 4809
     - path: src/models/evaluate.py
       hash: md5
       md5: 34d8a142c23c7006b5ff897e54753e6f
       size: 2171
+  visualize:
+    cmd: python src/models/visualize_explain.py
+    deps:
+    - path: data/processed/graphs_dataset.pt
+      hash: md5
+      md5: 6f766a9b01492e5f67480f601c65154d
+      size: 277544
+    - path: models/gnn_v1.pth
+      hash: md5
+      md5: 7260b52e27ef440697b604f650a640ea
+      size: 4809
+    - path: src/models/visualize_explain.py
+      hash: md5
+      md5: 5a583b6ab9db652c21ceca7952f1a28c
+      size: 3383
+    outs:
+    - path: reports/figures/molecule_explanation.png
+      hash: md5
+      md5: 7d6b80f8e4baa6948a51d338317d0845
+      size: 172673

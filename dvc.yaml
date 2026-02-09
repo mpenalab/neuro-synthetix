@@ -59,3 +59,11 @@ stages:
       - src/models/evaluate.py
       - models/gnn_v1.pth
       - data/processed/graphs_dataset.pt
+  visualize:
+    cmd: python src/models/visualize_explain.py
+    deps:
+      - src/models/visualize_explain.py
+      - models/gnn_v1.pth
+      - data/processed/graphs_dataset.pt
+    outs:
+      - reports/figures/molecule_explanation.png

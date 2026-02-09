@@ -71,6 +71,15 @@ The platform is built on four fundamental pillars:
     * Integrated **Captum** to interpret GNN predictions.
     * Applied **Integrated Gradients** to assign importance scores to individual atoms.
     * Transitioned from "Black Box" modeling to interpretable drug discovery, identifying key pharmacophores.
+* **Day 11:** **Explainable AI Visualization**.
+    * Successfully integrated **Captum** with the **RDKit Cairo** engine.
+    * Generated atomic attribution heatmaps to interpret GNN predictions.
+    * Validated the MLOps pipeline end-to-end: from raw SMILES to visual scientific reports.
+
+## 📊 Model Interpretability
+Below is an example of the model explaining why a specific molecule is predicted as a potent EGFR inhibitor. The green/blue contours highlight atoms with positive contributions to the pChEMBL prediction.
+
+![Molecular Explanation](reports/figures/molecule_explanation.png)
 
 ---
 
